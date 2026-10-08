@@ -1,0 +1,2220 @@
+{
+  "P00533": {
+    "count": 15,
+    "next": null,
+    "previous": null,
+    "results": [
+      {
+        "metadata": {
+          "accession": "IPR000494",
+          "name": "Receptor L-domain",
+          "source_database": "interpro",
+          "type": "domain",
+          "integrated": null,
+          "member_databases": {
+            "pfam": {
+              "PF01030": "Receptor L domain"
+            }
+          },
+          "go_terms": null
+        },
+        "proteins": [
+          {
+            "accession": "p00533",
+            "protein_length": 1210,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 57,
+                    "end": 167,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              },
+              {
+                "fragments": [
+                  {
+                    "start": 361,
+                    "end": 480,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR000719",
+          "name": "Protein kinase domain",
+          "source_database": "interpro",
+          "type": "domain",
+          "integrated": null,
+          "member_databases": {
+            "profile": {
+              "PS50011": "Protein kinase domain profile"
+            },
+            "pfam": {
+              "PF00069": "Protein kinase domain"
+            },
+            "smart": {
+              "SM00220": "Serine/Threonine protein kinases, catalytic domain"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0005524",
+              "name": "ATP binding",
+              "category": {
+                "code": "F",
+                "name": "molecular_function"
+              }
+            },
+            {
+              "identifier": "GO:0006468",
+              "name": "protein phosphorylation",
+              "category": {
+                "code": "P",
+                "name": "biological_process"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p00533",
+            "protein_length": 1210,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 712,
+                    "end": 979,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR001245",
+          "name": "Serine-threonine/tyrosine-protein kinase, catalytic domain",
+          "source_database": "interpro",
+          "type": "domain",
+          "integrated": null,
+          "member_databases": {
+            "pfam": {
+              "PF07714": "Protein tyrosine and serine/threonine kinase"
+            },
+            "prints": {
+              "PR00109": "TYRKINASE"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0004672",
+              "name": "protein kinase activity",
+              "category": {
+                "code": "F",
+                "name": "molecular_function"
+              }
+            },
+            {
+              "identifier": "GO:0006468",
+              "name": "protein phosphorylation",
+              "category": {
+                "code": "P",
+                "name": "biological_process"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p00533",
+            "protein_length": 1210,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 714,
+                    "end": 966,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR006211",
+          "name": "Furin-like cysteine-rich domain",
+          "source_database": "interpro",
+          "type": "domain",
+          "integrated": null,
+          "member_databases": {
+            "pfam": {
+              "PF00757": "Furin-like cysteine rich region"
+            }
+          },
+          "go_terms": null
+        },
+        "proteins": [
+          {
+            "accession": "p00533",
+            "protein_length": 1210,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 185,
+                    "end": 338,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR006212",
+          "name": "Furin-like repeat",
+          "source_database": "interpro",
+          "type": "repeat",
+          "integrated": null,
+          "member_databases": {
+            "cdd": {
+              "cd00064": "FU"
+            },
+            "smart": {
+              "SM00261": "Furin-like repeats"
+            }
+          },
+          "go_terms": null
+        },
+        "proteins": [
+          {
+            "accession": "p00533",
+            "protein_length": 1210,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 228,
+                    "end": 274,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              },
+              {
+                "fragments": [
+                  {
+                    "start": 496,
+                    "end": 601,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR008266",
+          "name": "Tyrosine-protein kinase, active site",
+          "source_database": "interpro",
+          "type": "active_site",
+          "integrated": null,
+          "member_databases": {
+            "prosite": {
+              "PS00109": "Tyrosine protein kinases specific active-site signature"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0004672",
+              "name": "protein kinase activity",
+              "category": {
+                "code": "F",
+                "name": "molecular_function"
+              }
+            },
+            {
+              "identifier": "GO:0006468",
+              "name": "protein phosphorylation",
+              "category": {
+                "code": "P",
+                "name": "biological_process"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p00533",
+            "protein_length": 1210,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 833,
+                    "end": 845,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR009030",
+          "name": "Growth factor receptor cysteine-rich domain superfamily",
+          "source_database": "interpro",
+          "type": "homologous_superfamily",
+          "integrated": null,
+          "member_databases": {
+            "ssf": {
+              "SSF57184": "Growth factor receptor domain"
+            }
+          },
+          "go_terms": null
+        },
+        "proteins": [
+          {
+            "accession": "p00533",
+            "protein_length": 1210,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 186,
+                    "end": 339,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              },
+              {
+                "fragments": [
+                  {
+                    "start": 505,
+                    "end": 636,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR011009",
+          "name": "Protein kinase-like domain superfamily",
+          "source_database": "interpro",
+          "type": "homologous_superfamily",
+          "integrated": null,
+          "member_databases": {
+            "ssf": {
+              "SSF56112": "Protein kinase-like (PK-like)"
+            }
+          },
+          "go_terms": null
+        },
+        "proteins": [
+          {
+            "accession": "p00533",
+            "protein_length": 1210,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 708,
+                    "end": 1003,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR016245",
+          "name": "Tyrosine protein kinase, EGF/ERB/XmrK receptor",
+          "source_database": "interpro",
+          "type": "family",
+          "integrated": null,
+          "member_databases": {
+            "pirsf": {
+              "PIRSF000619": "Tyrosine-protein kinase, EGF receptor type"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0004713",
+              "name": "protein tyrosine kinase activity",
+              "category": {
+                "code": "F",
+                "name": "molecular_function"
+              }
+            },
+            {
+              "identifier": "GO:0005524",
+              "name": "ATP binding",
+              "category": {
+                "code": "F",
+                "name": "molecular_function"
+              }
+            },
+            {
+              "identifier": "GO:0006468",
+              "name": "protein phosphorylation",
+              "category": {
+                "code": "P",
+                "name": "biological_process"
+              }
+            },
+            {
+              "identifier": "GO:0007169",
+              "name": "cell surface receptor protein tyrosine kinase signaling pathway",
+              "category": {
+                "code": "P",
+                "name": "biological_process"
+              }
+            },
+            {
+              "identifier": "GO:0016020",
+              "name": "membrane",
+              "category": {
+                "code": "C",
+                "name": "cellular_component"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p00533",
+            "protein_length": 1210,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 6,
+                    "end": 1204,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR017441",
+          "name": "Protein kinase, ATP binding site",
+          "source_database": "interpro",
+          "type": "binding_site",
+          "integrated": null,
+          "member_databases": {
+            "prosite": {
+              "PS00107": "Protein kinases ATP-binding region signature"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0005524",
+              "name": "ATP binding",
+              "category": {
+                "code": "F",
+                "name": "molecular_function"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p00533",
+            "protein_length": 1210,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 718,
+                    "end": 745,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR020635",
+          "name": "Tyrosine-protein kinase, catalytic domain",
+          "source_database": "interpro",
+          "type": "domain",
+          "integrated": null,
+          "member_databases": {
+            "smart": {
+              "SM00219": "Tyrosine kinase, catalytic domain"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0004713",
+              "name": "protein tyrosine kinase activity",
+              "category": {
+                "code": "F",
+                "name": "molecular_function"
+              }
+            },
+            {
+              "identifier": "GO:0006468",
+              "name": "protein phosphorylation",
+              "category": {
+                "code": "P",
+                "name": "biological_process"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p00533",
+            "protein_length": 1210,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 712,
+                    "end": 968,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR032778",
+          "name": "Growth factor receptor domain 4",
+          "source_database": "interpro",
+          "type": "domain",
+          "integrated": null,
+          "member_databases": {
+            "pfam": {
+              "PF14843": "Growth factor receptor domain IV"
+            }
+          },
+          "go_terms": null
+        },
+        "proteins": [
+          {
+            "accession": "p00533",
+            "protein_length": 1210,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 505,
+                    "end": 637,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR036941",
+          "name": "Receptor L-domain superfamily",
+          "source_database": "interpro",
+          "type": "homologous_superfamily",
+          "integrated": null,
+          "member_databases": {
+            "cathgene3d": {
+              "G3DSA:3.80.20.20": "Receptor L-domain"
+            }
+          },
+          "go_terms": null
+        },
+        "proteins": [
+          {
+            "accession": "p00533",
+            "protein_length": 1210,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 25,
+                    "end": 213,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              },
+              {
+                "fragments": [
+                  {
+                    "start": 333,
+                    "end": 530,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR049328",
+          "name": "Epidermal growth factor receptor-like, transmembrane-juxtamembrane segment",
+          "source_database": "interpro",
+          "type": "domain",
+          "integrated": null,
+          "member_databases": {
+            "pfam": {
+              "PF21314": "Epidermal growth factor receptor transmembrane-juxtamembrane segment"
+            }
+          },
+          "go_terms": null
+        },
+        "proteins": [
+          {
+            "accession": "p00533",
+            "protein_length": 1210,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 646,
+                    "end": 681,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR050122",
+          "name": "Receptor Tyrosine Kinase",
+          "source_database": "interpro",
+          "type": "family",
+          "integrated": null,
+          "member_databases": {
+            "panther": {
+              "PTHR24416": "Receptor Tyrosine Kinase"
+            }
+          },
+          "go_terms": null
+        },
+        "proteins": [
+          {
+            "accession": "p00533",
+            "protein_length": 1210,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 58,
+                    "end": 974,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "P04637": {
+    "count": 9,
+    "next": null,
+    "previous": null,
+    "results": [
+      {
+        "metadata": {
+          "accession": "IPR002117",
+          "name": "p53 tumour suppressor family",
+          "source_database": "interpro",
+          "type": "family",
+          "integrated": null,
+          "member_databases": {
+            "panther": {
+              "PTHR11447": "CELLULAR TUMOR ANTIGEN P53"
+            },
+            "prints": {
+              "PR00386": "P53SUPPRESSR"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0003677",
+              "name": "DNA binding",
+              "category": {
+                "code": "F",
+                "name": "molecular_function"
+              }
+            },
+            {
+              "identifier": "GO:0003700",
+              "name": "DNA-binding transcription factor activity",
+              "category": {
+                "code": "F",
+                "name": "molecular_function"
+              }
+            },
+            {
+              "identifier": "GO:0006355",
+              "name": "regulation of DNA-templated transcription",
+              "category": {
+                "code": "P",
+                "name": "biological_process"
+              }
+            },
+            {
+              "identifier": "GO:0006915",
+              "name": "apoptotic process",
+              "category": {
+                "code": "P",
+                "name": "biological_process"
+              }
+            },
+            {
+              "identifier": "GO:0005634",
+              "name": "nucleus",
+              "category": {
+                "code": "C",
+                "name": "cellular_component"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p04637",
+            "protein_length": 393,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 3,
+                    "end": 369,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR008967",
+          "name": "p53-like transcription factor, DNA-binding domain superfamily",
+          "source_database": "interpro",
+          "type": "homologous_superfamily",
+          "integrated": null,
+          "member_databases": {
+            "ssf": {
+              "SSF49417": "p53-like transcription factors"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0003700",
+              "name": "DNA-binding transcription factor activity",
+              "category": {
+                "code": "F",
+                "name": "molecular_function"
+              }
+            },
+            {
+              "identifier": "GO:0006355",
+              "name": "regulation of DNA-templated transcription",
+              "category": {
+                "code": "P",
+                "name": "biological_process"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p04637",
+            "protein_length": 393,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 97,
+                    "end": 287,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR010991",
+          "name": "p53, tetramerisation domain",
+          "source_database": "interpro",
+          "type": "domain",
+          "integrated": null,
+          "member_databases": {
+            "pfam": {
+              "PF07710": "P53 tetramerisation motif"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0051262",
+              "name": "protein tetramerization",
+              "category": {
+                "code": "P",
+                "name": "biological_process"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p04637",
+            "protein_length": 393,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 319,
+                    "end": 357,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR011615",
+          "name": "p53, DNA-binding domain",
+          "source_database": "interpro",
+          "type": "domain",
+          "integrated": null,
+          "member_databases": {
+            "cdd": {
+              "cd08367": "P53 DNA-binding domain"
+            },
+            "pfam": {
+              "PF00870": "P53 DNA-binding domain"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0000976",
+              "name": "transcription cis-regulatory region binding",
+              "category": {
+                "code": "F",
+                "name": "molecular_function"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p04637",
+            "protein_length": 393,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 100,
+                    "end": 288,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR012346",
+          "name": "p53/RUNT-type transcription factor, DNA-binding domain superfamily",
+          "source_database": "interpro",
+          "type": "homologous_superfamily",
+          "integrated": null,
+          "member_databases": {
+            "cathgene3d": {
+              "G3DSA:2.60.40.720": "G3DSA:2.60.40.720"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0003677",
+              "name": "DNA binding",
+              "category": {
+                "code": "F",
+                "name": "molecular_function"
+              }
+            },
+            {
+              "identifier": "GO:0003700",
+              "name": "DNA-binding transcription factor activity",
+              "category": {
+                "code": "F",
+                "name": "molecular_function"
+              }
+            },
+            {
+              "identifier": "GO:0006355",
+              "name": "regulation of DNA-templated transcription",
+              "category": {
+                "code": "P",
+                "name": "biological_process"
+              }
+            },
+            {
+              "identifier": "GO:0005634",
+              "name": "nucleus",
+              "category": {
+                "code": "C",
+                "name": "cellular_component"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p04637",
+            "protein_length": 393,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 95,
+                    "end": 294,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR013872",
+          "name": "p53, transactivation domain",
+          "source_database": "interpro",
+          "type": "domain",
+          "integrated": null,
+          "member_databases": {
+            "pfam": {
+              "PF08563": "P53 transactivation motif"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0005515",
+              "name": "protein binding",
+              "category": {
+                "code": "F",
+                "name": "molecular_function"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p04637",
+            "protein_length": 393,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 6,
+                    "end": 30,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR036674",
+          "name": "p53-like tetramerisation domain superfamily",
+          "source_database": "interpro",
+          "type": "homologous_superfamily",
+          "integrated": null,
+          "member_databases": {
+            "cathgene3d": {
+              "G3DSA:4.10.170.10": "p53-like tetramerisation domain"
+            },
+            "ssf": {
+              "SSF47719": "p53 tetramerization domain"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0051262",
+              "name": "protein tetramerization",
+              "category": {
+                "code": "P",
+                "name": "biological_process"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p04637",
+            "protein_length": 393,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 319,
+                    "end": 360,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR040926",
+          "name": "Cellular tumor antigen p53, transactivation domain 2",
+          "source_database": "interpro",
+          "type": "domain",
+          "integrated": null,
+          "member_databases": {
+            "pfam": {
+              "PF18521": "Transactivation domain 2"
+            }
+          },
+          "go_terms": null
+        },
+        "proteins": [
+          {
+            "accession": "p04637",
+            "protein_length": 393,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 35,
+                    "end": 59,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR057064",
+          "name": "p53, central conserved site",
+          "source_database": "interpro",
+          "type": "conserved_site",
+          "integrated": null,
+          "member_databases": {
+            "prosite": {
+              "PS00348": "p53 family signature"
+            }
+          },
+          "go_terms": null
+        },
+        "proteins": [
+          {
+            "accession": "p04637",
+            "protein_length": 393,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 237,
+                    "end": 249,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "P02768": {
+    "count": 5,
+    "next": null,
+    "previous": null,
+    "results": [
+      {
+        "metadata": {
+          "accession": "IPR000264",
+          "name": "ALB/AFP/VDB",
+          "source_database": "interpro",
+          "type": "family",
+          "integrated": null,
+          "member_databases": {
+            "panther": {
+              "PTHR11385": "SERUM ALBUMIN-RELATED"
+            },
+            "prints": {
+              "PR00802": "SERUMALBUMIN"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0005576",
+              "name": "extracellular region",
+              "category": {
+                "code": "C",
+                "name": "cellular_component"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p02768",
+            "protein_length": 609,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 1,
+                    "end": 607,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR014760",
+          "name": "Serum albumin, N-terminal",
+          "source_database": "interpro",
+          "type": "domain",
+          "integrated": null,
+          "member_databases": {
+            "cdd": {
+              "cd00015": "ALBUMIN"
+            },
+            "profile": {
+              "PS51438": "Albumin domain profile"
+            },
+            "pfam": {
+              "PF00273": "Serum albumin family"
+            },
+            "smart": {
+              "SM00103": "serum albumin"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0005576",
+              "name": "extracellular region",
+              "category": {
+                "code": "C",
+                "name": "cellular_component"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p02768",
+            "protein_length": 609,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 19,
+                    "end": 210,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              },
+              {
+                "fragments": [
+                  {
+                    "start": 211,
+                    "end": 403,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              },
+              {
+                "fragments": [
+                  {
+                    "start": 404,
+                    "end": 601,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR020857",
+          "name": "Serum albumin, conserved site",
+          "source_database": "interpro",
+          "type": "conserved_site",
+          "integrated": null,
+          "member_databases": {
+            "prosite": {
+              "PS00212": "Albumin domain signature"
+            }
+          },
+          "go_terms": null
+        },
+        "proteins": [
+          {
+            "accession": "p02768",
+            "protein_length": 609,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 185,
+                    "end": 209,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              },
+              {
+                "fragments": [
+                  {
+                    "start": 575,
+                    "end": 599,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR020858",
+          "name": "Serum albumin-like",
+          "source_database": "interpro",
+          "type": "homologous_superfamily",
+          "integrated": null,
+          "member_databases": {
+            "ssf": {
+              "SSF48552": "Serum albumin-like"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0005576",
+              "name": "extracellular region",
+              "category": {
+                "code": "C",
+                "name": "cellular_component"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p02768",
+            "protein_length": 609,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 22,
+                    "end": 213,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              },
+              {
+                "fragments": [
+                  {
+                    "start": 222,
+                    "end": 410,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              },
+              {
+                "fragments": [
+                  {
+                    "start": 413,
+                    "end": 604,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR021177",
+          "name": "Serum albumin/Alpha-fetoprotein/Afamin",
+          "source_database": "interpro",
+          "type": "family",
+          "integrated": null,
+          "member_databases": {
+            "pirsf": {
+              "PIRSF002520": "Serum albumin"
+            },
+            "prints": {
+              "PR00803": "AFETOPROTEIN"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0005576",
+              "name": "extracellular region",
+              "category": {
+                "code": "C",
+                "name": "cellular_component"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p02768",
+            "protein_length": 609,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 1,
+                    "end": 607,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "P00441": {
+    "count": 4,
+    "next": null,
+    "previous": null,
+    "results": [
+      {
+        "metadata": {
+          "accession": "IPR001424",
+          "name": "Superoxide dismutase, copper/zinc binding domain",
+          "source_database": "interpro",
+          "type": "domain",
+          "integrated": null,
+          "member_databases": {
+            "cdd": {
+              "cd00305": "Cu-Zn_Superoxide_Dismutase"
+            },
+            "pfam": {
+              "PF00080": "Copper/zinc superoxide dismutase (SODC)"
+            },
+            "prints": {
+              "PR00068": "CUZNDISMTASE"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0046872",
+              "name": "metal ion binding",
+              "category": {
+                "code": "F",
+                "name": "molecular_function"
+              }
+            },
+            {
+              "identifier": "GO:0006801",
+              "name": "superoxide metabolic process",
+              "category": {
+                "code": "P",
+                "name": "biological_process"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p00441",
+            "protein_length": 154,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 3,
+                    "end": 151,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR018152",
+          "name": "Superoxide dismutase, copper/zinc, binding site",
+          "source_database": "interpro",
+          "type": "binding_site",
+          "integrated": null,
+          "member_databases": {
+            "prosite": {
+              "PS00332": "Copper/Zinc superoxide dismutase signature 2",
+              "PS00087": "Copper/Zinc superoxide dismutase signature 1"
+            }
+          },
+          "go_terms": null
+        },
+        "proteins": [
+          {
+            "accession": "p00441",
+            "protein_length": 154,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 45,
+                    "end": 55,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              },
+              {
+                "fragments": [
+                  {
+                    "start": 139,
+                    "end": 150,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR024134",
+          "name": "Superoxide dismutase (Cu/Zn)/superoxide dismutase copper chaperone",
+          "source_database": "interpro",
+          "type": "family",
+          "integrated": null,
+          "member_databases": {
+            "panther": {
+              "PTHR10003": "SUPEROXIDE DISMUTASE CU-ZN -RELATED"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0005507",
+              "name": "copper ion binding",
+              "category": {
+                "code": "F",
+                "name": "molecular_function"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p00441",
+            "protein_length": 154,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 2,
+                    "end": 152,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR036423",
+          "name": "Superoxide dismutase-like, copper/zinc binding domain superfamily",
+          "source_database": "interpro",
+          "type": "homologous_superfamily",
+          "integrated": null,
+          "member_databases": {
+            "ssf": {
+              "SSF49329": "Cu,Zn superoxide dismutase-like"
+            },
+            "cathgene3d": {
+              "G3DSA:2.60.40.200": "Superoxide dismutase, copper/zinc binding domain"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0046872",
+              "name": "metal ion binding",
+              "category": {
+                "code": "F",
+                "name": "molecular_function"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p00441",
+            "protein_length": 154,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 2,
+                    "end": 154,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "P12830": {
+    "count": 7,
+    "next": null,
+    "previous": null,
+    "results": [
+      {
+        "metadata": {
+          "accession": "IPR000233",
+          "name": "Cadherin, Y-type LIR-motif",
+          "source_database": "interpro",
+          "type": "domain",
+          "integrated": null,
+          "member_databases": {
+            "pfam": {
+              "PF01049": "Cadherin, Y-type LIR-motif"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0005509",
+              "name": "calcium ion binding",
+              "category": {
+                "code": "F",
+                "name": "molecular_function"
+              }
+            },
+            {
+              "identifier": "GO:0007156",
+              "name": "homophilic cell-cell adhesion",
+              "category": {
+                "code": "P",
+                "name": "biological_process"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p12830",
+            "protein_length": 882,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 818,
+                    "end": 877,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR002126",
+          "name": "Cadherin-like",
+          "source_database": "interpro",
+          "type": "domain",
+          "integrated": null,
+          "member_databases": {
+            "profile": {
+              "PS50268": "Cadherins domain profile"
+            },
+            "smart": {
+              "SM00112": "Cadherin repeats."
+            },
+            "pfam": {
+              "PF00028": "Cadherin domain"
+            },
+            "prints": {
+              "PR00205": "CADHERIN"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0005509",
+              "name": "calcium ion binding",
+              "category": {
+                "code": "F",
+                "name": "molecular_function"
+              }
+            },
+            {
+              "identifier": "GO:0007156",
+              "name": "homophilic cell-cell adhesion",
+              "category": {
+                "code": "P",
+                "name": "biological_process"
+              }
+            },
+            {
+              "identifier": "GO:0016020",
+              "name": "membrane",
+              "category": {
+                "code": "C",
+                "name": "cellular_component"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p12830",
+            "protein_length": 882,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 160,
+                    "end": 262,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              },
+              {
+                "fragments": [
+                  {
+                    "start": 262,
+                    "end": 386,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              },
+              {
+                "fragments": [
+                  {
+                    "start": 376,
+                    "end": 486,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              },
+              {
+                "fragments": [
+                  {
+                    "start": 487,
+                    "end": 595,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              },
+              {
+                "fragments": [
+                  {
+                    "start": 594,
+                    "end": 702,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR014868",
+          "name": "Cadherin prodomain",
+          "source_database": "interpro",
+          "type": "domain",
+          "integrated": null,
+          "member_databases": {
+            "smart": {
+              "SM01055": "Cadherin prodomain like"
+            },
+            "pfam": {
+              "PF08758": "Cadherin prodomain like"
+            }
+          },
+          "go_terms": null
+        },
+        "proteins": [
+          {
+            "accession": "p12830",
+            "protein_length": 882,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 27,
+                    "end": 116,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR015919",
+          "name": "Cadherin-like superfamily",
+          "source_database": "interpro",
+          "type": "homologous_superfamily",
+          "integrated": null,
+          "member_databases": {
+            "ssf": {
+              "SSF49313": "Cadherin-like"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0005509",
+              "name": "calcium ion binding",
+              "category": {
+                "code": "F",
+                "name": "molecular_function"
+              }
+            },
+            {
+              "identifier": "GO:0016020",
+              "name": "membrane",
+              "category": {
+                "code": "C",
+                "name": "cellular_component"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p12830",
+            "protein_length": 882,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 27,
+                    "end": 254,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              },
+              {
+                "fragments": [
+                  {
+                    "start": 250,
+                    "end": 480,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              },
+              {
+                "fragments": [
+                  {
+                    "start": 475,
+                    "end": 691,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR020894",
+          "name": "Cadherin conserved site",
+          "source_database": "interpro",
+          "type": "conserved_site",
+          "integrated": null,
+          "member_databases": {
+            "prosite": {
+              "PS00232": "Cadherin domain signature"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0007155",
+              "name": "cell adhesion",
+              "category": {
+                "code": "P",
+                "name": "biological_process"
+              }
+            },
+            {
+              "identifier": "GO:0005886",
+              "name": "plasma membrane",
+              "category": {
+                "code": "C",
+                "name": "cellular_component"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p12830",
+            "protein_length": 882,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 363,
+                    "end": 373,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              },
+              {
+                "fragments": [
+                  {
+                    "start": 583,
+                    "end": 593,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR027397",
+          "name": "Catenin binding domain superfamily",
+          "source_database": "interpro",
+          "type": "homologous_superfamily",
+          "integrated": null,
+          "member_databases": {
+            "cathgene3d": {
+              "G3DSA:4.10.900.10": "TCF3-CBD (Catenin binding domain)"
+            }
+          },
+          "go_terms": null
+        },
+        "proteins": [
+          {
+            "accession": "p12830",
+            "protein_length": 882,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 786,
+                    "end": 882,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "metadata": {
+          "accession": "IPR039808",
+          "name": "Cadherin",
+          "source_database": "interpro",
+          "type": "family",
+          "integrated": null,
+          "member_databases": {
+            "panther": {
+              "PTHR24027": "CADHERIN-23"
+            }
+          },
+          "go_terms": [
+            {
+              "identifier": "GO:0098609",
+              "name": "cell-cell adhesion",
+              "category": {
+                "code": "P",
+                "name": "biological_process"
+              }
+            }
+          ]
+        },
+        "proteins": [
+          {
+            "accession": "p12830",
+            "protein_length": 882,
+            "source_database": "reviewed",
+            "organism": "9606",
+            "in_alphafold": true,
+            "entry_protein_locations": [
+              {
+                "fragments": [
+                  {
+                    "start": 144,
+                    "end": 878,
+                    "dc-status": "CONTINUOUS"
+                  }
+                ],
+                "representative": false,
+                "model": null,
+                "score": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

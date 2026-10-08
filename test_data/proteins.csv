@@ -1,0 +1,9 @@
+Protein ID,Sample,Intensity,Notes
+P00533,A,1200,EGFR membrane receptor
+P04637,A,300,p53 nuclear protein
+P02768,A,950,Albumin secreted protein
+P00441,B,400,SOD1 metal-binding enzyme
+P12830,B,700,E-cadherin adhesion protein
+P00533,B,1800,Duplicate ID with different measured intensity
+,B,100,Empty ID must retain its original row
+NOT_A_PROTEIN,C,0,Unmatched ID must not count as a success
