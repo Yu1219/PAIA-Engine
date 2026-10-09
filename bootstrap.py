@@ -129,15 +129,20 @@ def main(argv: list[str] | None = None) -> int:
         pass
     parser = argparse.ArgumentParser(description="PAIA Engineの自動セットアップと起動")
     parser.add_argument("--setup-only", action="store_true", help="ライブラリの準備だけを行う")
+    parser.add_argument("--build", action="store_true", help="このPC向けのスタンドアローン版を作成する")
     parser.add_argument("--port", type=int, default=8501, help="操作画面のポート番号")
     parser.add_argument("--no-browser", action="store_true", help="ブラウザーを自動で開かない")
     args = parser.parse_args(argv)
     if not 1 <= args.port <= 65535:
         parser.error("port must be between 1 and 65535")
+    if args.setup_only and args.build:
+        parser.error("--setup-only and --build cannot be combined")
     try:
         python = prepare_environment()
         if args.setup_only:
             return 0
+        if args.build:
+            return subprocess.call([str(python), str(ROOT / "build_standalone.py")], cwd=ROOT)
         command = [str(python), str(ROOT / "launcher.py"), "--port", str(args.port)]
         if args.no_browser:
             command.append("--no-browser")

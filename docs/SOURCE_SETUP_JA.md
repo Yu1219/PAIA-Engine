@@ -2,6 +2,12 @@
 
 この配布版はPythonのソースコードです。Python 3.14（64ビット版）を使って実行します。
 
+一つずつ進める手順は、展開先の **PAIA_Manual_JA.html** または [詳しい日本語説明書（PDF）](manual/PAIA_Engine_Detailed_Manual_JA.pdf) を開いてください。
+
+準備だけの場合は **01_Setup_Libraries.bat**、起動は **PAIA_Engine_Source.bat**、exe作成は **02_Build_Standalone.bat** をダブルクリックします。Python本体は別途用意します。ライブラリは各補助ファイルが専用環境にまとめて準備します。
+
+補助ファイルの記録は `logs/setup.log`、`logs/build.log`、`logs/launch.log` に保存されます。PC確認は `00_Check_PC.bat` で `logs/pc_check.txt` に保存できます。
+
 ## 自動で行うこと
 
 1. `PAIA_Engine_Source.bat` がPython 3.14を探します。`py -3.14`、`python`、`python3.14`、一般的なユーザー別インストール先の順に確認します。
@@ -47,6 +53,16 @@ py -3.14 bootstrap.py --setup-only
 .venv\Scripts\python.exe -m pip install -r requirements-dev.txt
 .venv\Scripts\python.exe -m pytest
 ```
+
+手動でexeを作成する場合：
+
+```powershell
+py -3.14 bootstrap.py --build
+```
+
+Windows x64で、PyInstallerと追加のビルド用ライブラリを `requirements-build.lock` に固定した構成で `.venv` に準備します。作成先は `output/standalone/作成日時` です。既存のexeフォルダーを上書きしません。
+
+`build_report.json` の `runtime_tested` は作成直後に `false` です。ビルド成功と実行確認を区別するためで、作成したexeの確認を自動で成功扱いにはしません。
 
 ## 必要な主なライブラリ
 

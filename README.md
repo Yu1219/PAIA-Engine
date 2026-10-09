@@ -8,11 +8,11 @@
 
 ## 初心者向け：ダウンロードから起動まで
 
-1. このGitHubページの緑色の **Code** をクリックし、**Download ZIP** を選びます。非公開リポジトリの場合は、閲覧権限のあるGitHubアカウントでログインしてください。
+1. このGitHubページの緑色の **Code** をクリックし、**Download ZIP** を選びます。公開リポジトリなのでログイン不要です。
 2. ダウンロードしたZIPを右クリックし、**すべて展開** を選びます。
-3. 展開先のフォルダーを開き、**PAIA_Engine_Source.bat** をダブルクリックします。
-4. 初回は黒いウィンドウでライブラリのインストールが始まります。完了までそのまま待ちます。インターネット接続が必要です。
-5. 準備ができるとブラウザーに操作画面が開きます。利用中は黒いウィンドウを開いたままにします。
+3. 展開先の **PAIA_Manual_JA.html** をダブルクリックすると、実画面と図解付きの詳しい説明書を読めます。Python 3.14があるか確認します。
+4. **01_Setup_Libraries.bat** をダブルクリックし、最後の **READY** を確認します。初回はインターネット接続が必要です。
+5. **PAIA_Engine_Source.bat** をダブルクリックすると操作画面が開きます。利用中は黒いウィンドウを開いたままにします。
 6. 左側の **Test dataset (offline)** と **Basic / 基本情報** を選び、**Annotate Proteins** を押して練習します。
 7. **Download Annotated CSV** で結果を保存します。
 
@@ -31,12 +31,31 @@ Pythonがまだない場合は [Python公式ダウンロード](https://www.pyth
 
 ## 操作ガイド
 
+- [40ページ・152ステップの詳細日本語説明書（PDF）](docs/manual/PAIA_Engine_Detailed_Manual_JA.pdf)
+- [詳細説明書（HTML：展開後にダブルクリック）](PAIA_Manual_JA.html)。画像を含む単独ファイルです。手順検索・操作チェック・画像拡大が使えます。
 - [入力、結果の確認、絞り込み、CSV保存](docs/USER_GUIDE_JA.md)
 - [自動セットアップの仕組みと、困ったときの対処](docs/SOURCE_SETUP_JA.md)
 - [Python 3.14での検証結果](docs/SOURCE_VALIDATION_JA.md)
 - [練習用CSV](test_data/proteins.csv)
 
 ![入力と設定の例](docs/images/input.png)
+
+## ダブルクリック用の補助ファイル
+
+| ファイル | 操作 |
+|---|---|
+| `PAIA_Manual_JA.html` | 詳しい説明書を開く |
+| `00_Check_PC.bat` | PC・Pythonの情報を `logs/pc_check.txt` に記録 |
+| `01_Setup_Libraries.bat` | Python 3.14を探し、アプリ用ライブラリを専用環境へ自動準備 |
+| `PAIA_Engine_Source.bat` | ソース版を起動 |
+| `02_Build_Standalone.bat` | ビルド用ライブラリも自動準備し、Python同梱のexe版を作成 |
+| `03_Run_With_Log.bat` | 起動しながら `logs/launch.log` を保存 |
+
+Python本体は別途必要です。ライブラリ準備ファイルはPython本体のインストールを行いません。
+
+exe版は `output/standalone/作成日時/PAIA_Engine` に作成されます。`PAIA_Engine.exe` と `_internal` を含むフォルダー全体が必要です。配布用ZIPは同じ作成日時フォルダーの `PAIA_Engine_Standalone.zip` です。ZIPを別の場所にすべて展開して、起動・操作・CSV保存・終了後の再起動を確認してください。
+
+今回のWindows x64 / Python 3.14.8でのビルドと、別フォルダーに展開したexeの操作を確認しています。旧exeが動かなかった別PCは、そのPCで確認が必要です。
 
 ## 主な機能
 

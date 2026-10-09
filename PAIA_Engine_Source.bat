@@ -21,7 +21,7 @@ echo Install 64-bit Python 3.14 from https://www.python.org/downloads/windows/
 echo If Python 3.14 is installed elsewhere, run:
 echo   "path\to\python.exe" bootstrap.py
 echo.
-pause
+if not defined PAIA_NO_PAUSE pause
 exit /b 1
 
 :run_py
@@ -47,5 +47,5 @@ exit /b 0
 :failed
 echo.
 echo Setup or launch failed. Please check the messages above.
-pause
+if not defined PAIA_NO_PAUSE pause
 exit /b 1
