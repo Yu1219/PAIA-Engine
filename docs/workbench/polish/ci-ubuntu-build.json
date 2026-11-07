@@ -1,0 +1,13 @@
+{
+  "version": "2.0.1",
+  "commit": "092822e3e2a4002ec9e36e18c681ecc08200319e",
+  "working_tree_dirty": false,
+  "platform": "Linux-7.0.0-1019-azure-x86_64-with-glibc2.43",
+  "python": "3.14.10 (main, Oct 26 2026, 14:17:03) [GCC 15.2.0]",
+  "zip": "/home/runner/work/PAIA-Engine/PAIA-Engine/output/workbench/v2.0.1-linux-x64-20261107-180628/PAIA-Workbench-2.0.1-linux-x64.zip",
+  "executable": "/home/runner/work/PAIA-Engine/PAIA-Engine/output/workbench/v2.0.1-linux-x64-20261107-180628/PAIA_Workbench/PAIA_Workbench",
+  "sha256": "e411ff24b8f0a70652324b669f8c1a4f28410b9030e4605bb47b6e4ab9bec977",
+  "files": 788,
+  "built_at": "2026-11-07T18:07:14.352129+00:00",
+  "runtime_tested": false
+}

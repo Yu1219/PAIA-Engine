@@ -1,0 +1,13 @@
+{
+  "version": "2.0.1",
+  "commit": "04be91b4bdb1f7581f56165e1ccf92ba944b58fa",
+  "working_tree_dirty": false,
+  "platform": "Windows-11-10.0.26300-SP0",
+  "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+  "zip": "C:\\Python\\ProteinAnnotation\\output\\workbench\\v2.0.1-windows-x64-20261107-180546\\PAIA-Workbench-2.0.1-windows-x64.zip",
+  "executable": "C:\\Python\\ProteinAnnotation\\output\\workbench\\v2.0.1-windows-x64-20261107-180546\\PAIA_Workbench\\PAIA_Workbench.exe",
+  "sha256": "43e031274d0ddd8f1a1693ee8074dba9d4b1882731aa251870ba200955122df3",
+  "files": 806,
+  "built_at": "2026-11-07T18:06:42.984219+00:00",
+  "runtime_tested": false
+}
