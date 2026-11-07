@@ -10,7 +10,15 @@ const statusNames = {'Matched':'一致','Not found':'不一致','Needs review':'
 const categoryNames = {'Physicochemical':'物理化学的性質','Functional / Structural':'機能・構造','Biological Classification':'生物学的分類','Spatial':'局在・組織','General Info':'基本情報','GO / Domains':'GO・ドメイン','PTM Details':'翻訳後修飾','Membrane / Surface':'膜・細胞表面'};
 const friendly = key => names[key] || key;
 const textValue = value => value === null || value === undefined || value === '' ? '—' : typeof value === 'boolean' ? (value ? '根拠あり' : '登録根拠なし') : typeof value === 'object' ? JSON.stringify(value) : String(value);
-function notify(message, error = false) { $('notice').textContent = message; $('notice').className = error ? 'error' : ''; $('notice').hidden = false; }
+function notify(message, error = false) {
+  const inline = error && ($('detail-dialog').open ? $('detail-error') : $('quit-dialog').open ? $('quit-error') : null);
+  const target = inline || $('notice');
+  target.setAttribute('role',error ? 'alert' : 'status');
+  target.setAttribute('aria-live',error ? 'assertive' : 'polite');
+  target.textContent = message; target.hidden = false;
+  if (!inline) target.className = error ? 'error' : '';
+  if (error) { target.tabIndex=-1; target.focus({preventScroll:false}); }
+}
 async function request(path, value, rawHeaders) {
   const headers = {'X-PAIA-Token':token, ...(rawHeaders || {})};
   const options = {headers};
@@ -27,7 +35,10 @@ function changeView(next, focus = true) {
   for (const v of ['input','results','guide']) $('view-' + v).hidden = v !== next;
   document.querySelectorAll('[data-view]').forEach(b => { b.classList.toggle('active',b.dataset.view === next); b.setAttribute('aria-current', b.dataset.view === next ? 'page' : 'false'); });
   $('breadcrumb').textContent = 'ワークスペース / ' + {input:'入力と設定',results:'結果を探索',guide:'使い方'}[next];
-  if (focus) $('main').focus({preventScroll:true});
+  if (focus) {
+    $('main').focus({preventScroll:true});
+    window.scrollTo({top:0,behavior:'instant'});
+  }
 }
 function changed() { draftVersion++; $('stale').hidden = !state?.results.data.length || draftVersion === runDraftVersion; }
 function setOptions(node, values, placeholder) {
@@ -94,7 +105,7 @@ async function loadDemo() {
 async function loadFile(file) {
   if (!file) return;
   const sequence=++importSequence;
-  importing=true;updateRunButton();
+  importing=true;updateRunButton();notify('ファイルを読み込んでいます…');
   try {
     if (file.size > 24*1024*1024) throw new Error('ファイルは24MB以下にしてください。');
     const response = await request('/api/import',await file.arrayBuffer(),{'X-PAIA-Filename': 'input' + (file.name.match(/\.[^.]+$/)?.[0] || '')});
@@ -149,7 +160,7 @@ async function showDetail(index){
   const revision=state.revision;
   const row=await api('/api/detail/'+index+'?revision='+revision);
   if(state.revision!==revision)throw new Error('結果が更新されました。最新の一覧から詳細を開いてください。');
-  detailRow=row;clear($('detail-body'));$('detail-title').textContent=row['Gene Name']||row['Query ID'];
+  detailRow=row;$('detail-error').hidden=true;clear($('detail-body'));$('detail-title').textContent=row['Gene Name']||row['Query ID'];
   const body=$('detail-body');body.append(el('p',row['Protein Name']||'対応するタンパク質は未確定です。'));body.append(el('p',`${row['Query ID']} · ${statusNames[row['Mapping Status']]||row['Mapping Status']} · ${row['Organism']||'生物種未確定'}`,'detail-meta'));
   if(row['Data Mode'])body.append(el('p',row['Data Mode'],'data-banner'));
   if(String(row['Species Match']).includes('Different'))body.append(el('p','選択した生物種と異なるIDです。意図したタンパク質か確認してください。','data-banner warn'));
@@ -161,7 +172,7 @@ async function showDetail(index){
     wrap.append(label,select,el('p',`${row['Candidate Count']}件の候補のうち ${(row._candidates||[]).length}件を表示しています。見つからなければ入力を絞り込んでください。`,'help'),confirm);body.append(wrap);
   }
   if(row['Mapping Status']==='Matched'){
-    if(/^https:\/\/www\.uniprot\.org\/uniprotkb\/[A-Z0-9-]+\/entry$/.test(row['UniProt URL']||'')){const link=el('a','UniProtで出典を開く ↗');link.href=row['UniProt URL'];link.target='_blank';link.rel='noopener noreferrer';body.append(link);}
+    if(/^https:\/\/www\.uniprot\.org\/uniprotkb\/[A-Z0-9-]+\/entry$/.test(row['UniProt URL']||'')){const link=el('a','UniProtで出典を開く');link.href=row['UniProt URL'];link.target='_blank';link.rel='noopener noreferrer';body.append(link);}
     body.append(el('p',`取得日時：${row['Retrieved At']||'不明'} · UniProt ${row['UniProt Release']||'版情報なし'} · Entry ${row['Entry Version']||'不明'}`,'detail-meta'));
     const dl=el('dl');for(const attr of state.settings.attrs){dl.append(el('dt',friendly(attr)),el('dd',textValue(row[attr])));}body.append(dl);
     const records=row._annotation_records||[],d=el('details'),summary=el('summary',`出典・根拠を確認（${records.length}件）`);d.append(summary);
@@ -178,7 +189,7 @@ function acceptState(next, restoreDraft=false){
   $('job-panel').hidden=!busy;$('job-message').textContent=state.job.message;$('job-count').textContent=`${state.job.completed} / ${state.job.total} ID`;$('progress').max=state.job.total||1;$('progress').value=state.job.completed;$('cancel').disabled=state.job.status==='cancelling';
   updateRunButton();$('restore').disabled=busy||pending;$('quit').disabled=busy||pending;
   document.querySelectorAll('#view-input input,#view-input textarea,#view-input select,#view-input button:not(#run)').forEach(n=>n.disabled=busy||pending);
-  if(state.revision!==previous){if($('detail-dialog').open)$('detail-dialog').close();detailRow=null;renderResults();if(restoreDraft && state.input){draft=state.input;inputMode='file';switchInput('file');renderPreview(state.id_column);applySettings(state.settings);runDraftVersion=draftVersion;}}
+  if(state.revision!==previous){if($('detail-dialog').open)$('detail-dialog').close();detailRow=null;renderResults();if(restoreDraft && state.input){draft=state.input;inputMode='file';switchInput('file');$('filename').textContent='前回実行時の入力を復元しました。表とID列を確認して再実行できます。';renderPreview(state.id_column);applySettings(state.settings);runDraftVersion=draftVersion;}}
   if((state.job.status!==lastJob || (state.job.status==='done' && state.revision!==previous)) && ['error','cancelled','done'].includes(state.job.status)){notify(state.job.message,state.job.status==='error');if(state.job.status==='done'){if(submittedDraftVersion!==null)runDraftVersion=submittedDraftVersion;changeView('results');}submittedDraftVersion=null;}
   lastJob=state.job.status;$('stale').hidden=!state.results.data.length||draftVersion===runDraftVersion;
 }
@@ -196,7 +207,7 @@ async function init(){
   setOptions($('preset'),[...Object.keys(config.presets).map(v=>[v,v.split(' / ')[1]||v]),['custom','カスタム']]);
   applySettings(state.settings);$('preset').value='Basic / 基本情報';
   document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>changeView(b.dataset.view)));
-  document.querySelectorAll('[data-input]').forEach(b=>{b.addEventListener('click',()=>switchInput(b.dataset.input));b.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();const modes=['type','file','demo'],i=modes.indexOf(b.dataset.input),next=modes[(i+(e.key==='ArrowRight'?1:2))%3];switchInput(next);$('tab-'+next).focus();});});
+  document.querySelectorAll('[data-input]').forEach(b=>{b.tabIndex=b.dataset.input===inputMode?0:-1;b.addEventListener('click',()=>switchInput(b.dataset.input));b.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const modes=['type','file','demo'],i=modes.indexOf(b.dataset.input),next=e.key==='Home'?'type':e.key==='End'?'demo':modes[(i+(e.key==='ArrowRight'?1:2))%3];switchInput(next);$('tab-'+next).focus();});});
   $('ids').addEventListener('input',updateTyped);$('id-column').addEventListener('change',()=>{renderPreview();changed();});
   $('preset').addEventListener('change',()=>{if($('preset').value==='custom')return;attrSet=new Set(config.presets[$('preset').value]||Object.values(config.categories).flat());renderAttributes();changed();});
   $('mode').addEventListener('change',()=>{updateMode();changed();});$('species').addEventListener('change',()=>{$('custom-species-wrap').hidden=$('species').value!=='custom';changed();});
@@ -212,7 +223,7 @@ async function init(){
   $('restore').addEventListener('click',()=>$('project-file').click());$('project-file').addEventListener('change',safe(async e=>{try{await restoreProject(e.target.files[0]);}finally{e.target.value='';}}));
   for(const id of ['close-detail','detail-done'])$(id).addEventListener('click',()=>$('detail-dialog').close());
   $('evidence-download').addEventListener('click',()=>{if(detailRow)saveBlob(new Blob([JSON.stringify(detailRow,null,2)],{type:'application/json'}),'PAIA-evidence.json');});
-  $('quit').addEventListener('click',()=>{$('save-and-quit').disabled=!state.results.data.length;$('quit-dialog').showModal();});$('quit-back').addEventListener('click',()=>$('quit-dialog').close());$('save-and-quit').addEventListener('click',safe(()=>quit(true)));$('quit-now').addEventListener('click',safe(()=>quit(false)));
+  $('quit').addEventListener('click',()=>{$('quit-error').hidden=true;$('save-and-quit').disabled=!state.results.data.length;$('quit-dialog').showModal();});$('quit-back').addEventListener('click',()=>$('quit-dialog').close());$('save-and-quit').addEventListener('click',safe(()=>quit(true)));$('quit-now').addEventListener('click',safe(()=>quit(false)));
   const initial=state;state=null;acceptState(initial,true);if(initial.results.data.length)changeView('results',false);if(['running','cancelling'].includes(initial.job.status))startPolling();
 }
 safe(init)();

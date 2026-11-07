@@ -30,7 +30,7 @@ from annotation_workflow import (PRESETS, demo_input, demo_results, input_stats,
                                  merge_annotations, normalize_id, public_frame)
 from uniprot_fetcher import ATTRIBUTE_CATEGORIES, ID_TYPES, NUMERIC_ATTRIBUTES, _fetch_batch_async
 
-VERSION = "2.0.0"
+VERSION = "2.0.1"
 ROOT = Path(__file__).resolve().parent
 MAX_BYTES = 24 * 1024 * 1024
 MAX_PROJECT_BYTES = 128 * 1024 * 1024

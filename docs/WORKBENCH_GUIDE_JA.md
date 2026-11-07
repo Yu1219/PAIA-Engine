@@ -1,4 +1,4 @@
-# PAIA Workbench 2.0
+# PAIA Workbench 2.0.1
 
 日本語の新画面です。旧Streamlit版の解析処理を共用しています。アプリの利用にLLMやAPIキーは不要です。
 

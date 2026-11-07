@@ -14,7 +14,9 @@ test('file loading, submitted versions, immediate completion and safe exit', asy
     getElementById(id) {
       if (!nodes.has(id)) nodes.set(id, {
         value: 'Protein ID', hidden: false, open: false,
-        setAttribute() {}, close() { this.open = false; }
+        setAttribute(name,value) { this[name]=value; },
+        focus() { this.focused=true; },
+        close() { this.open = false; }
       });
       return nodes.get(id);
     }
@@ -24,6 +26,7 @@ test('file loading, submitted versions, immediate completion and safe exit', asy
     .replace('const api =', 'let api =');
   await vm.runInNewContext(source + `
   (async () => {
+    const originalNotify=notify;
     renderResults=()=>{}; renderPreview=()=>{}; updateMode=()=>{};
     notify=()=>{}; changeView=()=>{}; startPolling=()=>{}; settings=()=>({});
     state={revision:1,results:{data:[[1]]},
@@ -79,6 +82,18 @@ test('file loading, submitted versions, immediate completion and safe exit', asy
     assert.equal(downloads,1);
     assert.equal(shutdowns,0);
     assert.match($('quit-help').textContent,/JSONを確認/);
+
+    // Errors remain visible and focusable inside the active modal.
+    $('detail-dialog').open=true;
+    originalNotify('保存に失敗しました。再試行してください。',true);
+    assert.equal($('detail-error').hidden,false);
+    assert.equal($('detail-error').role,'alert');
+    assert.equal($('detail-error').focused,true);
+    assert.match($('detail-error').textContent,/保存に失敗/);
+    $('detail-dialog').open=false;
+    originalNotify('IDを入力してください。',true);
+    assert.equal($('notice').role,'alert');
+    assert.equal($('notice').focused,true);
   })();
   `, {document, assert, console, setTimeout});
 });
