@@ -81,7 +81,13 @@ def test_csv_blank_lines_and_cp932_are_retained():
     assert frame["Memo"].tolist() == ["日本語","","NA"]
 
 
-@pytest.mark.parametrize("damage",["schema","id","results","table","settings","records","candidate"])
+@pytest.mark.parametrize("text",["ID,Memo\nP00533,A,extra\n", "ID,ID\nP00533,A\n", "ID,\nP00533,A\n"])
+def test_ragged_or_ambiguous_csv_rejected_before_pandas_can_shift_values(text):
+    with pytest.raises(desktop.UserError):
+        desktop.read_input(text.encode("utf-8"),"input.csv")
+
+
+@pytest.mark.parametrize("damage",["schema","id","results","table","settings","records","candidate","public_object","nonfinite","text_type","created_at"])
 def test_damaged_project_rejected_without_touching_previous_work(completed,damage):
     before = completed.project()
     broken = copy.deepcopy(before)
@@ -92,6 +98,10 @@ def test_damaged_project_rejected_without_touching_previous_work(completed,damag
     if damage == "settings": broken["settings"]["attrs"] = ["unknown"]
     if damage == "records": broken["results"][0]["_annotation_records"] = "wrong"
     if damage == "candidate": broken["results"][0]["_candidates"] = [42]
+    if damage == "public_object": broken["results"][0]["Subcellular Localization"] = {"broken":"value"}
+    if damage == "nonfinite": broken["results"][0]["Molecular Weight (Da)"] = float("inf")
+    if damage == "text_type": broken["results"][0]["Subcellular Localization"] = 42
+    if damage == "created_at": broken["created_at"] = {"unexpected":"object"}
     with pytest.raises(desktop.UserError):
         completed.restore({"revision":completed.revision,"project":broken})
     assert completed.project() == before
@@ -133,6 +143,8 @@ def test_stale_tabs_cannot_overwrite_or_export_changed_results(completed):
         completed.start(dict(payload(completed),revision=0))
     with pytest.raises(desktop.UserError):
         completed.export_csv({"revision":0})
+    with pytest.raises(desktop.UserError):
+        completed.export_project({"revision":0})
 
 
 def test_ambiguous_mapping_requires_explicit_candidate_and_keeps_query(snapshot,monkeypatch):
@@ -143,8 +155,10 @@ def test_ambiguous_mapping_requires_explicit_candidate_and_keeps_query(snapshot,
     work.id_column="Protein ID"
     work.rows = [desktop.compact_row(ambiguous)]
     with pytest.raises(desktop.UserError):
-        work.resolve({"revision":0,"index":0,"accession":"P00441"})
-    work.resolve({"revision":0,"index":0,"accession":"P00533"})
+        work.resolve({"revision":0,"index":0,"query_id":"generic","accession":"P00441"})
+    with pytest.raises(desktop.UserError):
+        work.resolve({"revision":0,"index":0,"query_id":"other query","accession":"P00533"})
+    work.resolve({"revision":0,"index":0,"query_id":"generic","accession":"P00533"})
     assert wait_job(work)["job"]["status"] == "done"
     assert work.rows[0]["Query ID"] == "generic"
     assert work.rows[0]["Accession"] == "P00533"
@@ -183,6 +197,10 @@ def test_local_http_assets_api_and_export(server):
     status,meta,body=call(server,"/api/export/csv",desktop.json_bytes({"revision":1}),headers)
     assert status==200 and body.startswith(b"\xef\xbb\xbf") and "attachment" in meta["Content-Disposition"]
     assert call(server,"/api/detail/-1",headers=headers)[0]==404
+    assert call(server,"/api/detail/0?revision=0",headers=headers)[0]==409
+    assert call(server,"/api/detail/0?revision=1",headers=headers)[0]==200
+    assert call(server,"/api/export/project",b'{"revision":0}',headers)[0]==400
+    assert call(server,"/api/export/project",b'{"revision":1}',headers)[0]==200
 
 
 @pytest.mark.parametrize("headers",[{}, {"X-PAIA-Token":"wrong"},{"Host":"evil.example"},{"Origin":"https://evil.example"},{"Origin":"null"}])
@@ -194,6 +212,6 @@ def test_api_rejects_untrusted_requests(server,headers):
 
 def test_malformed_requests_are_recoverable(server):
     headers={"X-PAIA-Token":server.token}
-    for body in (b"broken",b"[]",b'{"revision":NaN}',b'{}'):
+    for body in (b"broken",b"[]",b'{"revision":NaN}',b'{"revision":1e309}',b'{}'):
         assert call(server,"/api/run",body,headers)[0]==400
     assert call(server,"/api/state",headers=headers)[0]==200

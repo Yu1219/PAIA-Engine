@@ -4,7 +4,7 @@ const token = document.querySelector('meta[name="paia-token"]').content;
 const el = (tag, text, cls) => { const n = document.createElement(tag); if (text !== undefined) n.textContent = text; if (cls) n.className = cls; return n; };
 const clear = node => node.replaceChildren();
 let config, state, draft = null, inputMode = 'type', view = 'input', attrSet = new Set(), visible = [], columns = [], sortBy = 'Query ID', sortDir = 1, page = 0, detailRow = null, lastJob = '', draftVersion = 0, runDraftVersion = -1;
-let polling = false, pending = false, importSequence = 0;
+let polling = false, pending = false, importing = false, importSequence = 0, submittedDraftVersion = null;
 const names = {'Query ID':'入力ID','Accession':'UniProt ID','Mapping Status':'照合状態','Gene Name':'遺伝子名','Protein Name':'タンパク質名','Organism':'生物種','Protein Function':'機能','Molecular Weight (Da)':'分子量 (Da)','Isoelectric Point (pI)':'理論等電点 (pI)','Sequence Length':'配列長','Subcellular Localization':'細胞内局在','Tissue Specificity':'組織特異性','Kinase Activity':'キナーゼ','Zinc-Binding Sites':'亜鉛結合部位','Metal-Binding Sites':'金属結合部位','Phosphorylation Sites':'リン酸化部位','Disulfide Bonds':'ジスルフィド結合','Glycosylation Sites':'糖鎖修飾部位','Signal Peptide':'シグナルペプチド','Transmembrane Regions':'膜貫通領域','DNA-Binding Domains':'DNA結合領域','Active Sites':'活性部位','Coiled-Coil Regions':'コイルドコイル','Receptor':'受容体','Secreted Protein':'分泌タンパク質','Cell Adhesion':'細胞接着','Transporter / Channel':'輸送体・チャネル','Enzyme':'酵素','Transcription Factor':'転写因子','Protease':'プロテアーゼ','Cytokine / Growth Factor':'サイトカイン・増殖因子','Structural Protein':'構造タンパク質','Immune-Related':'免疫関連','Topological Domains':'トポロジー領域','GO Molecular Function':'GO：分子機能','GO Biological Process':'GO：生物学的過程','GO Cellular Component':'GO：細胞構成要素','Protein Domains':'ドメイン','Protein Families':'ファミリー','InterPro Entries':'InterPro登録','Pfam Entries':'Pfam登録','PTM Details':'翻訳後修飾の詳細','Lipidation Sites':'脂質修飾部位','Glycoprotein Annotation':'糖タンパク質の根拠','Membrane Location':'膜の局在','Extracellular Regions':'細胞外領域','Cell Surface Candidate':'細胞表面候補','Species Match':'生物種の対応','Taxonomy ID':'Taxonomy ID','Candidate Count':'候補数','InterPro Status':'InterPro取得状態','Retrieved At':'取得日時','Reviewed':'レビュー済み','Data Mode':'データの取得元'};
 const statusNames = {'Matched':'一致','Not found':'不一致','Needs review':'候補の確認が必要','Fetch error':'通信エラー','Invalid query':'クエリを確認','Needs isoform review':'アイソフォーム要確認','Empty input':'空欄'};
 const categoryNames = {'Physicochemical':'物理化学的性質','Functional / Structural':'機能・構造','Biological Classification':'生物学的分類','Spatial':'局在・組織','General Info':'基本情報','GO / Domains':'GO・ドメイン','PTM Details':'翻訳後修飾','Membrane / Surface':'膜・細胞表面'};
@@ -35,7 +35,9 @@ function setOptions(node, values, placeholder) {
   if (placeholder !== undefined) { const o = el('option',placeholder); o.value = ''; node.append(o); }
   for (const [value,label] of values) { const o = el('option',label); o.value = value; node.append(o); }
 }
-function switchInput(next) {
+function updateRunButton() { $('run').disabled = importing || pending || ['running','cancelling'].includes(state?.job.status); }
+function switchInput(next, keepImport = false) {
+  if (!keepImport) { importSequence++; importing=false; updateRunButton(); }
   inputMode = next;
   for (const v of ['type','file','demo']) { $('pane-'+v).hidden = v !== next; $('tab-'+v).setAttribute('aria-selected',String(v === next)); $('tab-'+v).tabIndex = v === next ? 0 : -1; }
   if (next === 'type') updateTyped(); else renderPreview();
@@ -82,17 +84,24 @@ function updateAttrSummary() {
 }
 function updateMode() { $('mode-help').textContent = $('mode').value === 'offline' ? '保存済みの5種類のタンパク質だけを照合します。最新データではありません。' : 'IDをUniProt / InterProに送信します。最新データの取得にはネット接続が必要です。'; }
 async function loadDemo() {
-  draft = await api('/api/demo'); switchInput('demo'); $('mode').value = 'offline'; updateMode(); renderPreview('Protein ID'); changed();
-  notify('サンプル8行を読み込みました。「アノテーションを実行」で結果を確認できます。');
+  const sequence=++importSequence; importing=true; updateRunButton();
+  try {
+    const loaded=await api('/api/demo'); if(sequence!==importSequence) return;
+    draft=loaded; switchInput('demo',true); $('mode').value = 'offline'; updateMode(); renderPreview('Protein ID'); changed();
+    notify('サンプル8行を読み込みました。「アノテーションを実行」で結果を確認できます。');
+  } finally { if(sequence===importSequence){importing=false;updateRunButton();} }
 }
 async function loadFile(file) {
   if (!file) return;
   const sequence=++importSequence;
-  if (file.size > 24*1024*1024) throw new Error('ファイルは24MB以下にしてください。');
-  const response = await request('/api/import',await file.arrayBuffer(),{'X-PAIA-Filename': 'input' + (file.name.match(/\.[^.]+$/)?.[0] || '')});
-  const loaded = await response.json();
-  if(sequence!==importSequence) return;
-  draft = loaded; switchInput('file'); $('filename').textContent = file.name; renderPreview(); changed(); notify('ファイルを読み込みました。IDが入った列を確認してください。');
+  importing=true;updateRunButton();
+  try {
+    if (file.size > 24*1024*1024) throw new Error('ファイルは24MB以下にしてください。');
+    const response = await request('/api/import',await file.arrayBuffer(),{'X-PAIA-Filename': 'input' + (file.name.match(/\.[^.]+$/)?.[0] || '')});
+    const loaded = await response.json();
+    if(sequence!==importSequence) return;
+    draft = loaded; switchInput('file',true); $('filename').textContent = file.name; renderPreview(); changed(); notify('ファイルを読み込みました。IDが入った列を確認してください。');
+  } finally { if(sequence===importSequence){importing=false;updateRunButton();} }
 }
 function resultRows() { return state.results.data.map((row,index)=>({...Object.fromEntries(state.results.columns.map((c,i)=>[c,row[i]])),index})); }
 function renderResults() {
@@ -137,7 +146,10 @@ function filterTable() {
 }
 function renderChart(){const counts=new Map();visible.filter(r=>r['Mapping Status']==='Matched').forEach(r=>new Set((r['Subcellular Localization']||'').split(';').map(v=>v.trim()).filter(Boolean)).forEach(v=>counts.set(v,(counts.get(v)||0)+1)));clear($('location-chart'));const top=[...counts].sort((a,b)=>b[1]-a[1]).slice(0,6),max=top[0]?.[1]||1;if(!top.length)$('location-chart').append(el('p','局在の登録情報がありません。','help'));for(const [name,n]of top){const row=el('div',undefined,'bar-row'),track=el('div',undefined,'bar-track'),bar=el('div',undefined,'bar-fill');bar.style.width=(n/max*100)+'%';track.append(bar);row.append(el('span',name),track,el('span',n));row.title=name+': '+n; $('location-chart').append(row);}}
 async function showDetail(index){
-  const row=await api('/api/detail/'+index);detailRow=row;clear($('detail-body'));$('detail-title').textContent=row['Gene Name']||row['Query ID'];
+  const revision=state.revision;
+  const row=await api('/api/detail/'+index+'?revision='+revision);
+  if(state.revision!==revision)throw new Error('結果が更新されました。最新の一覧から詳細を開いてください。');
+  detailRow=row;clear($('detail-body'));$('detail-title').textContent=row['Gene Name']||row['Query ID'];
   const body=$('detail-body');body.append(el('p',row['Protein Name']||'対応するタンパク質は未確定です。'));body.append(el('p',`${row['Query ID']} · ${statusNames[row['Mapping Status']]||row['Mapping Status']} · ${row['Organism']||'生物種未確定'}`,'detail-meta'));
   if(row['Data Mode'])body.append(el('p',row['Data Mode'],'data-banner'));
   if(String(row['Species Match']).includes('Different'))body.append(el('p','選択した生物種と異なるIDです。意図したタンパク質か確認してください。','data-banner warn'));
@@ -145,7 +157,7 @@ async function showDetail(index){
   if(row['Mapping Status']==='Needs review'){
     const wrap=el('div',undefined,'candidate-box'),label=el('label','候補を選択して対応を確定（自動選択しません）'),select=el('select');select.id='candidate-choice';label.htmlFor=select.id;
     setOptions(select,(row._candidates||[]).map(c=>[c.primaryAccession,`${c.primaryAccession} · ${c.proteinDescription?.recommendedName?.fullName?.value||''} · ${c.organism?.scientificName||''}`]),'未確定のまま');
-    const confirm=el('button','この候補で確定','primary compact');confirm.disabled=true;select.addEventListener('change',()=>{confirm.disabled=!select.value;});confirm.addEventListener('click',safe(async()=>{pending=true;confirm.disabled=true;try{const result=await api('/api/resolve',{revision:state.revision,index,accession:select.value});$('detail-dialog').close();acceptState(result);startPolling();}finally{pending=false;confirm.disabled=!select.value;}}));
+    const confirm=el('button','この候補で確定','primary compact');confirm.disabled=true;select.addEventListener('change',()=>{confirm.disabled=!select.value;});confirm.addEventListener('click',safe(async()=>{pending=true;confirm.disabled=true;try{const result=await api('/api/resolve',{revision,query_id:row['Query ID'],index,accession:select.value});$('detail-dialog').close();acceptState(result);startPolling();}finally{pending=false;confirm.disabled=!select.value;}}));
     wrap.append(label,select,el('p',`${row['Candidate Count']}件の候補のうち ${(row._candidates||[]).length}件を表示しています。見つからなければ入力を絞り込んでください。`,'help'),confirm);body.append(wrap);
   }
   if(row['Mapping Status']==='Matched'){
@@ -164,19 +176,19 @@ function saveBlob(blob,filename){const url=URL.createObjectURL(blob),a=el('a');a
 function acceptState(next, restoreDraft=false){
   const previous=state?.revision;state=next;const busy=['running','cancelling'].includes(state.job.status);
   $('job-panel').hidden=!busy;$('job-message').textContent=state.job.message;$('job-count').textContent=`${state.job.completed} / ${state.job.total} ID`;$('progress').max=state.job.total||1;$('progress').value=state.job.completed;$('cancel').disabled=state.job.status==='cancelling';
-  $('run').disabled=busy||pending;$('restore').disabled=busy||pending;
+  updateRunButton();$('restore').disabled=busy||pending;$('quit').disabled=busy||pending;
   document.querySelectorAll('#view-input input,#view-input textarea,#view-input select,#view-input button:not(#run)').forEach(n=>n.disabled=busy||pending);
-  if(state.revision!==previous){renderResults();if(restoreDraft && state.input){draft=state.input;inputMode='file';switchInput('file');renderPreview(state.id_column);applySettings(state.settings);runDraftVersion=draftVersion;}}
-  if(state.job.status!==lastJob && ['error','cancelled','done'].includes(state.job.status)){notify(state.job.message,state.job.status==='error');if(state.job.status==='done'){runDraftVersion=draftVersion;changeView('results');}}
+  if(state.revision!==previous){if($('detail-dialog').open)$('detail-dialog').close();detailRow=null;renderResults();if(restoreDraft && state.input){draft=state.input;inputMode='file';switchInput('file');renderPreview(state.id_column);applySettings(state.settings);runDraftVersion=draftVersion;}}
+  if((state.job.status!==lastJob || (state.job.status==='done' && state.revision!==previous)) && ['error','cancelled','done'].includes(state.job.status)){notify(state.job.message,state.job.status==='error');if(state.job.status==='done'){if(submittedDraftVersion!==null)runDraftVersion=submittedDraftVersion;changeView('results');}submittedDraftVersion=null;}
   lastJob=state.job.status;$('stale').hidden=!state.results.data.length||draftVersion===runDraftVersion;
 }
 function startPolling(){if(polling)return;polling=true;const tick=async()=>{try{const next=await api('/api/state');acceptState(next);if(['running','cancelling'].includes(next.job.status)){setTimeout(tick,400);return;}}catch(e){notify(e.message,true);}polling=false;};setTimeout(tick,150);}
 async function run(){
-  if(pending)return;if(!draft)throw new Error('IDを入力するか、ファイルまたはサンプルを読み込んでください。');
-  pending=true;$('run').disabled=true;try{acceptState(await api('/api/run',{revision:state.revision,input:draft,id_column:$('id-column').value,settings:settings()}));startPolling();}finally{pending=false;$('run').disabled=['running','cancelling'].includes(state.job.status);}
+  if(pending)return;if(importing)throw new Error('ファイルの読み込み完了を待ってから実行してください。');if(!draft)throw new Error('IDを入力するか、ファイルまたはサンプルを読み込んでください。');
+  pending=true;submittedDraftVersion=draftVersion;updateRunButton();try{acceptState(await api('/api/run',{revision:state.revision,input:draft,id_column:$('id-column').value,settings:settings()}));startPolling();}catch(error){submittedDraftVersion=null;throw error;}finally{pending=false;updateRunButton();}
 }
 async function restoreProject(file){if(!file)return;if(file.size>128*1024*1024-1024)throw new Error('プロジェクトは128MB以下にしてください。');let project;try{project=JSON.parse(await file.text());}catch(_){throw new Error('JSONを読み込めません。元の作業はそのまま残っています。');}acceptState(await api('/api/restore',{revision:state.revision,project}),true);changeView('results');notify('プロジェクトを復元しました。入力・設定・根拠を確認できます。');}
-async function quit(save){if(save && state.results.data.length)await download('/api/export/project',{},'PAIA-project.json');await api('/api/shutdown',{});$('quit-dialog').close();notify('アプリを終了しました。このタブを閉じてください。');document.querySelectorAll('button').forEach(b=>b.disabled=true);}
+async function quit(save){if(save && state.results.data.length){await download('/api/export/project',{revision:state.revision},'PAIA-project.json');$('quit-help').textContent='ダウンロードを開始しました。保存先でJSONを確認してから「終了する」を押してください。';return;}await api('/api/shutdown',{revision:state.revision});$('quit-dialog').close();notify('アプリを終了しました。このタブを閉じてください。');document.querySelectorAll('button').forEach(b=>b.disabled=true);}
 async function init(){
   [config,state]=await Promise.all([api('/api/config'),api('/api/state')]);
   $('version').textContent='v'+config.version+' · Portable';
@@ -196,7 +208,7 @@ async function init(){
   for(const id of ['search','numeric-min','numeric-max'])$(id).addEventListener('input',()=>{page=0;filterTable();});for(const id of ['status-filter','location-filter','class-filter','numeric-filter'])$(id).addEventListener('change',()=>{page=0;filterTable();});
   $('reset-filters').addEventListener('click',resetFilters);$('prev').addEventListener('click',()=>{page--;filterTable();});$('next').addEventListener('click',()=>{page++;filterTable();});
   $('export-all').addEventListener('click',safe(()=>download('/api/export/csv',{revision:state.revision},'PAIA-all-rows.csv')));$('export-filtered').addEventListener('click',safe(()=>download('/api/export/csv',{revision:state.revision,indices:visible.map(r=>r.index)},'PAIA-filtered.csv')));
-  $('save-project').addEventListener('click',safe(()=>download('/api/export/project',{},'PAIA-project.json')));
+  $('save-project').addEventListener('click',safe(()=>download('/api/export/project',{revision:state.revision},'PAIA-project.json')));
   $('restore').addEventListener('click',()=>$('project-file').click());$('project-file').addEventListener('change',safe(async e=>{try{await restoreProject(e.target.files[0]);}finally{e.target.value='';}}));
   for(const id of ['close-detail','detail-done'])$(id).addEventListener('click',()=>$('detail-dialog').close());
   $('evidence-download').addEventListener('click',()=>{if(detailRow)saveBlob(new Blob([JSON.stringify(detailRow,null,2)],{type:'application/json'}),'PAIA-evidence.json');});

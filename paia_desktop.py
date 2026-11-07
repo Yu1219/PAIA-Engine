@@ -8,17 +8,19 @@ from __future__ import annotations
 import argparse
 import asyncio
 import copy
+import csv
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import io
 import json
 import logging
+import math
 from pathlib import Path
 import secrets
 import sys
 import threading
 import webbrowser
-from urllib.parse import urlsplit
+from urllib.parse import parse_qs, urlsplit
 import zipfile
 
 import pandas as pd
@@ -46,12 +48,32 @@ def json_bytes(value):
     return json.dumps(value, ensure_ascii=False, allow_nan=False, separators=(",", ":")).encode("utf-8")
 
 
+def validate_json_tree(value, depth=0):
+    if depth > 40:
+        raise UserError("JSONの入れ子が深すぎます。")
+    if isinstance(value, float) and not math.isfinite(value):
+        raise UserError("JSONの数値が範囲外です。")
+    if type(value) is int and abs(value) > 9007199254740991:
+        raise UserError("大きな整数は精度を保つため文字列で指定してください。")
+    if isinstance(value, dict):
+        for key, child in value.items():
+            if not isinstance(key, str):
+                raise UserError("JSONの項目名が正しくありません。")
+            validate_json_tree(child, depth+1)
+    elif isinstance(value, list):
+        for child in value:
+            validate_json_tree(child, depth+1)
+    elif value is not None and type(value) not in (str, int, float, bool):
+        raise UserError("JSONに対応しない値が含まれています。")
+
+
 def table_payload(frame):
     # Pandas normalizes numpy scalars and missing values to JSON primitives.
     return json.loads(frame.to_json(orient="split", index=False, force_ascii=False, date_format="iso"))
 
 
 def validate_table(value):
+    validate_json_tree(value)
     if not isinstance(value, dict) or set(value) != {"columns", "data"}:
         raise UserError("入力表の形式が正しくありません。")
     columns, data = value["columns"], value["data"]
@@ -99,7 +121,17 @@ def read_input(data, filename):
                 text = data.decode("utf-8-sig")
             except UnicodeDecodeError:
                 text = data.decode("cp932")
-            frame = pd.read_csv(io.StringIO(text), sep="\t" if suffix in {".tsv", ".txt"} else ",",
+            separator = "\t" if suffix in {".tsv", ".txt"} else ","
+            reader = csv.reader(io.StringIO(text), delimiter=separator, strict=True)
+            headers = next(reader, [])
+            if not headers or len(headers) > 250 or len(set(headers)) != len(headers) or any(not h.strip() for h in headers):
+                raise UserError("先頭行には空欄・重複なしの列名を指定してください（最大250列）。")
+            for number, cells in enumerate(reader, start=1):
+                if number > MAX_ROWS:
+                    raise UserError(f"入力は{MAX_ROWS:,}行以内にしてください。")
+                if len(cells) > len(headers):
+                    raise UserError(f"データ{number}行目の列数が見出しを超えています。区切り文字を確認してください。")
+            frame = pd.read_csv(io.StringIO(text), sep=separator,
                                 dtype=str, keep_default_na=False, skip_blank_lines=False)
         else:
             raise UserError("CSV、TSV、XLSX、XLSを選んでください。")
@@ -114,7 +146,8 @@ def read_input(data, filename):
 
 def validate_project(value):
     """Validate completely before replacing any in-memory work; never unpickle."""
-    if not isinstance(value, dict) or value.get("format") != "paia-project" or value.get("schema") != 1:
+    validate_json_tree(value)
+    if not isinstance(value, dict) or value.get("format") != "paia-project" or type(value.get("schema")) is not int or value.get("schema") != 1:
         raise UserError("対応していないプロジェクト形式です。v2のJSONを選んでください。")
     frame = validate_table(value.get("input"))
     column = value.get("id_column")
@@ -131,12 +164,37 @@ def validate_project(value):
     if [r["Query ID"] for r in rows] != expected:
         raise UserError("プロジェクトの入力IDと検索結果が一致しません。")
     for row in rows:
+        # Public cells are scalar; the browser consumes name/location fields as text.
+        if any(v is not None and type(v) not in (str, bool, int, float) for k, v in row.items() if not k.startswith("_")):
+            raise UserError("注釈の値は文字列・数値・真偽値にしてください。")
+        numeric = set(NUMERIC_ATTRIBUTES) | {"Taxonomy ID", "Entry Version", "Candidate Count"}
+        boolean = set(BOOLEAN_ATTRIBUTES) | {"Reviewed"}
+        for key, cell in row.items():
+            if key.startswith("_") or cell is None:
+                continue
+            expected_type = (int, float) if key in numeric else (bool,) if key in boolean else (str,)
+            if type(cell) not in expected_type:
+                raise UserError(f"注釈「{key}」の値の形式が正しくありません。")
         records = row.get("_annotation_records", [])
         if (not isinstance(records, list) or any(not isinstance(r, dict) for r in records)
                 or not isinstance(row.get("_candidates", []), list)):
             raise UserError("根拠または候補情報の形式が正しくありません。")
         if any(not isinstance(c, dict) or not isinstance(c.get("primaryAccession"), str) for c in row.get("_candidates", [])):
             raise UserError("対応候補の形式が正しくありません。")
+        for candidate in row.get("_candidates", []):
+            description = candidate.get("proteinDescription", {})
+            organism = candidate.get("organism", {})
+            if (not isinstance(description, dict) or not isinstance(organism, dict) or
+                    not isinstance(description.get("recommendedName", {}), dict)):
+                raise UserError("候補の説明の形式が正しくありません。")
+    created_at = value.get("created_at")
+    if created_at is not None:
+        if not isinstance(created_at, str):
+            raise UserError("プロジェクトの取得日時が正しくありません。")
+        try:
+            datetime.fromisoformat(created_at)
+        except ValueError as exc:
+            raise UserError("プロジェクトの取得日時が正しくありません。") from exc
     return frame, column, settings, [compact_row(r) for r in rows]
 
 
@@ -184,6 +242,12 @@ class Workbench:
                     "id_column": self.id_column, "settings": copy.deepcopy(self.settings),
                     "results": copy.deepcopy(self.rows)}
 
+    def export_project(self, payload):
+        with self.lock:
+            if payload.get("revision") != self.revision:
+                raise UserError("結果が更新されました。最新の結果を確認して保存してください。")
+            return self.project()
+
     def restore(self, payload):
         frame, column, settings, rows = validate_project(payload.get("project"))
         with self.lock:
@@ -215,7 +279,8 @@ class Workbench:
             if type(index) is not int or not 0 <= index < len(self.rows):
                 raise UserError("対象の行が見つかりません。")
             old = self.rows[index]
-            if old.get("Mapping Status") != "Needs review" or accession not in [c["primaryAccession"] for c in old.get("_candidates", [])]:
+            if (payload.get("query_id") != old["Query ID"] or old.get("Mapping Status") != "Needs review"
+                    or accession not in [c["primaryAccession"] for c in old.get("_candidates", [])]):
                 raise UserError("表示された候補から選択してください。")
             settings = dict(self.settings, id_type="UniProt ID")
             self.cancel = threading.Event()
@@ -346,6 +411,10 @@ class Handler(BaseHTTPRequestHandler):
                 with self.server.workbench.lock:
                     if not 0 <= index < len(self.server.workbench.rows):
                         raise IndexError
+                    query = parse_qs(urlsplit(self.path).query)
+                    if query.get("revision") != [str(self.server.workbench.revision)]:
+                        self.reply(409, json_bytes({"error": "結果が更新されました。画面を再読み込みして詳細を開いてください。"}))
+                        return
                     self.reply(200, json_bytes(self.server.workbench.rows[index]))
             except (ValueError, IndexError):
                 self.reply(404, json_bytes({"error": "対象の結果が見つかりません。"}))
@@ -378,6 +447,7 @@ class Handler(BaseHTTPRequestHandler):
                 self.reply(200, json_bytes(table_payload(frame)))
                 return
             payload = json.loads(body, parse_constant=lambda _: (_ for _ in ()).throw(UserError("数値の形式が正しくありません。")))
+            validate_json_tree(payload)
             if not isinstance(payload, dict):
                 raise UserError("リクエストの形式が正しくありません。")
             if path == "/api/run":
@@ -392,7 +462,7 @@ class Handler(BaseHTTPRequestHandler):
             elif path == "/api/restore":
                 work.restore(payload)
             elif path == "/api/export/project":
-                data = json_bytes(work.project())
+                data = json_bytes(work.export_project(payload))
                 if len(data) > MAX_PROJECT_BYTES - 1024:
                     raise UserError("プロジェクトが128MBを超えます。全行CSVを保存し、入力を分割して解析してください。")
                 self.reply(200, data, filename="PAIA-project.json")
@@ -401,6 +471,8 @@ class Handler(BaseHTTPRequestHandler):
                 self.reply(200, work.export_csv(payload), "text/csv; charset=utf-8", "PAIA-annotations.csv")
                 return
             elif path == "/api/shutdown":
+                with work.lock:
+                    work.check_revision(payload)
                 self.reply(200, json_bytes({"ok": True}))
                 threading.Thread(target=self.server.shutdown, daemon=True).start()
                 return
