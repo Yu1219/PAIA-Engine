@@ -10,13 +10,13 @@
 - [UI方式の比較と採用理由](docs/WORKBENCH_DESIGN_JA.md)
 - [複数LLMによる開発・検証記録](docs/workbench/VALIDATION.md)
 
-Windows x64版を作成・検証します。macOS/Linuxには各OSでのビルドが必要で、実機動作は未検証です。新規の公開DB検索にはネット接続が必要です。サンプル・保存済み結果の閲覧は通信不要です。**終了前にプロジェクトJSONを保存してください。**
+Windows x64・macOS arm64・Linux x64の配布版を用意しています。対応するOS・CPUのZIPをすべて展開して使ってください。別の物理PCやMac/Linuxのデスクトップ実機は未検証です。新規の公開DB検索にはネット接続が必要です。サンプル・保存済み結果の閲覧は通信不要です。**終了前にプロジェクトJSONを保存してください。**
 
-Windows x64・macOS arm64・Linux x64のOS別配布版を作成し、[3環境のCI](https://github.com/Yu1219/PAIA-Engine/actions/runs/42382841846)で展開した実行ファイルの保存・復元・再起動を確認しました。実機デスクトップの未実施項目は検証記録を参照してください。
-
-以下は従来のStreamlit版の手順です。改修前の保存点は`baseline-before-v2-20261107`です。
+2.0.1のOS別配布版は[3環境のCI](https://github.com/Yu1219/PAIA-Engine/actions/runs/42399545506)で、展開した実行ファイルの保存・復元・再起動を確認しました。実機デスクトップの未実施項目は検証記録を参照してください。
 
 2.0.1では文字・コントラスト・操作領域・レスポンシブ配置を整え、詳細画面の見出しと保存操作を固定しました。[UI調整と確認結果](docs/workbench/UI_POLISH_20261107.md)。2.0.0への保存点は`before-ui-polish-20261107`です。
+
+以下は従来のStreamlit版の手順です。改修前の保存点は`baseline-before-v2-20261107`です。
 
 **Python 3.14対応・日本語ガイド付きのタンパク質アノテーションツール**
 
