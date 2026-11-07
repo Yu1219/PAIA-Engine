@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "commit": "b80a9b254ffd1da1a4b279eb43045d7f1e4287dd",
+  "package_sha256": "8b42c78ffce2b1b30892301e899a0384b0604e41b24509a7e9966a0a2a58d5a3",
+  "relocated_directory": "/Users/runner/work/PAIA-Engine/PAIA-Engine/tmp/配布版 移動テスト/v2.0.0-macos-arm64-20261107-144317-1794062621363025000",
+  "python_available_on_path": false,
+  "attributes": 44,
+  "input_rows": 8,
+  "unique_ids": 6,
+  "matched_ids": 5,
+  "evidence_records_first_id": 300,
+  "csv_rows": 8,
+  "project_roundtrip": "PASS",
+  "corrupt_project_preserves_results": "PASS",
+  "parallel_ephemeral_ports": "PASS",
+  "frozen_csv_tsv_xlsx_import": "PASS",
+  "restart_and_restore": "PASS",
+  "runtime_platform": "macOS-26.7.2-arm64-arm-64bit-Mach-O",
+  "other_pc": "NOT_RUN",
+  "other_platforms": "Do not infer; require separate jobs",
+  "browser_file_picker": "NOT_RUN"
+}

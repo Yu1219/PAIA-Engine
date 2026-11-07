@@ -10,6 +10,8 @@ Windows x64用ZIPを**すべて展開**し、`PAIA_Workbench/PAIA_Workbench.exe`
 
 このWindows版はWindows x64向けです。「すべてのPCで同じ実行ファイルが動く」という意味ではありません。macOS・Linux・Windows ARMでは各OS/CPU用のビルドが必要です。macOS/Linuxの実機確認は未実施です。セキュリティソフトや組織の利用制限があるPCでは、そのPCでの確認が必要です。
 
+Windows x64、macOS arm64（Apple Silicon）、Linux x64の配布物を作成しました。3つのOSのクラウド環境でも、展開後の実行ファイルによる読み込み・保存・復元・再起動が合格しています。確認環境はWindows、macOS26.7.2 arm64、Linux x64/glibc2.43です。古いOS、Intel Mac、Windows ARM、別のLinuxディストリビューションでの動作は未確認です。Mac/Linuxでは展開後の`PAIA_Workbench/PAIA_Workbench`を実行します。実行権限を保持できない展開ソフトを使った場合は、そのファイルに実行権限を設定します。
+
 ## 最初の操作
 
 1. 「サンプル」→「サンプルを読み込む」を選びます。

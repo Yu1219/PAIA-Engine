@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "commit": "b80a9b254ffd1da1a4b279eb43045d7f1e4287dd",
+  "package_sha256": "c70dab52288235b49394f79303956e1faecd1e2a1d79af3a778398fd393bdc59",
+  "relocated_directory": "D:\\a\\PAIA-Engine\\PAIA-Engine\\tmp\\配布版 移動テスト\\v2.0.0-windows-x64-20261107-144315-1794062630878288900",
+  "python_available_on_path": false,
+  "attributes": 44,
+  "input_rows": 8,
+  "unique_ids": 6,
+  "matched_ids": 5,
+  "evidence_records_first_id": 300,
+  "csv_rows": 8,
+  "project_roundtrip": "PASS",
+  "corrupt_project_preserves_results": "PASS",
+  "parallel_ephemeral_ports": "PASS",
+  "frozen_csv_tsv_xlsx_import": "PASS",
+  "restart_and_restore": "PASS",
+  "runtime_platform": "Windows-2025Server-10.0.26100-SP0",
+  "other_pc": "NOT_RUN",
+  "other_platforms": "Do not infer; require separate jobs",
+  "browser_file_picker": "NOT_RUN"
+}

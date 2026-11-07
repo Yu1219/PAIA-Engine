@@ -1,0 +1,13 @@
+{
+  "version": "2.0.0",
+  "commit": "b80a9b254ffd1da1a4b279eb43045d7f1e4287dd",
+  "working_tree_dirty": false,
+  "platform": "Windows-2025Server-10.0.26100-SP0",
+  "python": "3.14.10 (tags/v3.14.10:b703b2c, Oct 25 2026, 17:36:52) [MSC v.1944 64 bit (AMD64)]",
+  "zip": "D:\\a\\PAIA-Engine\\PAIA-Engine\\output\\workbench\\v2.0.0-windows-x64-20261107-144315\\PAIA-Workbench-2.0.0-windows-x64.zip",
+  "executable": "D:\\a\\PAIA-Engine\\PAIA-Engine\\output\\workbench\\v2.0.0-windows-x64-20261107-144315\\PAIA_Workbench\\PAIA_Workbench.exe",
+  "sha256": "c70dab52288235b49394f79303956e1faecd1e2a1d79af3a778398fd393bdc59",
+  "files": 1394,
+  "built_at": "2026-11-07T14:43:50.259851+00:00",
+  "runtime_tested": false
+}

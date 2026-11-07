@@ -46,6 +46,15 @@
     "claude_opus_5_5_high":"Requested and started; final response not retrieved after computer-use stop",
     "codex_gpt_6_1_sol_high":"Independent read-only fallback. Four P2 issues reproduced and fixed; focused re-review passed"
   },
+  "cross_os_ci": {
+    "status":"PASS",
+    "run_url":"https://github.com/Yu1219/PAIA-Engine/actions/runs/42382841846",
+    "head_commit":"6085ad88ad8296fc9894f3fdefe7b8274e9478bc",
+    "checkout_merge_commit":"b80a9b254ffd1da1a4b279eb43045d7f1e4287dd",
+    "platforms":["Windows Server 2025 x64","macOS 26.7.2 arm64","Linux x64 glibc2.43"],
+    "scope":"Each OS installed dependencies, tested, built and ran the extracted executable with no development Python on PATH; imported CSV/TSV/XLSX, saved/restored projects and restarted",
+    "desktop_gui":"NOT_RUN"
+  },
   "delivery_status":"REVIEW: runnable candidate; remaining real-browser and other-PC checks documented",
   "pull_request":"https://github.com/Yu1219/PAIA-Engine/pull/1"
 }

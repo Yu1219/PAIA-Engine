@@ -2,6 +2,8 @@
 
 開発手順：llm-dev-handoff 運用版1.1。[案件の仕様・担当・状態](https://app.notion.com/p/411e5729dd5d8183974de8eede1cfae3)。開始版69cc3b8、元版タグbaseline-before-v2-20261107。実装はCodexのみ。独立検証設計はGeminiアプリ（Flash）。重要レビューは別記。
 
+作業中に共通手順が1.2へ更新されたため、モデル配分の記録とNotion案件一覧は1.2に合わせました。実際に各AIへ渡した依頼版は1.1のまま記録しています。
+
 ## Geminiによる検証設計
 
 [実際のGemini会話](https://gemini.google.com/app/884d1c5f26ae8bab)。受信版1.1、開始コミット69cc3b8を返答。Notion/ソースの取得やテスト実行は行わず、渡した仕様本文だけから検証を設計したと明示。
@@ -40,6 +42,18 @@ Claude Opus 5.5 Highへ対象3796dc0のURLと受入条件を渡し、レビュ�
 Chromeの実画面でサンプル読み込み、全44項目、5/6一致、局在＋受容体によるEGFR絞り込み、詳細300件の根拠表示を確認。CSVダウンロードで元のEGFR2行とIntensity 1200/1800を保持。JSONのダウンロードも8行・6ID・44項目・根拠付きの有効ファイルとして確認しました。
 
 その後のファイル選択はブラウザー連携の設定制限で動かず、通常の選択画面への切り替えもブラウザー操作の安全確認で停止しました。狭幅・キーボードだけの完遂、ファイル選択画面からの復元、レビュー修正後の再描画は実画面でNOT_RUNです。配布実行ファイルのAPIを使った復元・保存は別に実施しています。PCのセキュリティ設定やブラウザー拡張の権限は変更していません。
+
+## 3つのOSの配布実行確認
+
+[GitHub Actions実行42382841846](https://github.com/Yu1219/PAIA-Engine/actions/runs/42382841846)のWindows/macOS/LinuxすべてがPASS。ソース入力6085ad88、CIが実際にチェックアウトしたPRのテスト用マージ版b80a9b254ffd1da1a4b279eb43045d7f1e4287dd。配布ソースのapp/UIはローカル検証版9d08404と共通です。
+
+各ジョブで依存導入、Python・Nodeテスト、配布ビルド、ZIP再展開、PATHから開発Pythonを除いた実行、CSV/TSV/XLSX、根拠・JSONを別プロセスへ復元、破損拒否、別ポート同時起動、終了後の再起動に合格しました。ログではbuild_reportのruntime_tested=falseはビルド時点の状態です。その後の実行結果は対になるruntime_validation.jsonのPASSを参照します。
+
+- Windowsの現PC向けZIPは43,750,576バイト。SHA256はRELEASE_VALIDATION.json。
+- macOS arm64 ZIPは33,408,307バイト。SHA256 8b42c78ffce2b1b30892301e899a0384b0604e41b24509a7e9966a0a2a58d5a3。
+- Linux x64 ZIPは70,039,597バイト。SHA256 03e622b882f203ad561bb227a1a20973582d028bb0be58e75d4a10a2edd27e29。
+
+各OSの正確な環境、対象版、実行結果はci-*-build_report.jsonとci-*-runtime_validation.jsonに保存しました。デスクトップ実機の画面操作や古いOSでの互換性はこの確認から推測しません。
 
 ## モデルの使い分け
 

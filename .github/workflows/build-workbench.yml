@@ -34,7 +34,7 @@ jobs:
         with:
           name: PAIA-${{ matrix.os }}
           path: |
-            output/workbench/**/*.zip
+            output/workbench/**/PAIA-Workbench-*.zip
             output/workbench/**/SHA256SUMS.txt
             output/workbench/**/build_report.json
             output/workbench/**/runtime_validation.json
