@@ -1,4 +1,4 @@
-"""Exercise the actual relocated executable with no Python available on PATH.
+"""Exercise the actual relocated executable without a development Python on PATH.
 
 This is an HTTP integration check, not a substitute for browser or other-PC tests.
 """
@@ -7,6 +7,7 @@ import hashlib
 import io
 import json
 import os
+import platform
 from pathlib import Path
 import queue
 import re
@@ -25,7 +26,7 @@ class Instance:
         env = os.environ.copy()
         for key in ("PYTHONHOME", "PYTHONPATH", "VIRTUAL_ENV"):
             env.pop(key, None)
-        env["PATH"] = str(Path(os.environ["SystemRoot"]) / "System32")
+        env["PATH"] = str(Path(os.environ["SystemRoot"]) / "System32") if os.name=="nt" else ""
         self.process = subprocess.Popen([str(executable), "--no-browser", "--port", "0"],
                                         cwd=cwd, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                         text=True, encoding="utf-8", errors="replace")
@@ -94,9 +95,14 @@ def main():
     location.mkdir(parents=True,exist_ok=False)
     with zipfile.ZipFile(package) as archive:
         archive.extractall(location)
+        if os.name!="nt":
+            for info in archive.infolist():
+                mode=(info.external_attr>>16)&0o777
+                if mode and not info.is_dir():
+                    (location/info.filename).chmod(mode)
     for record in json.loads((location/"file_manifest.json").read_text(encoding="utf-8")):
         assert hashlib.sha256((location/record["path"]).read_bytes()).hexdigest()==record["sha256"]
-    exe=location/"PAIA_Workbench/PAIA_Workbench.exe"
+    exe=location/"PAIA_Workbench"/("PAIA_Workbench.exe" if os.name=="nt" else "PAIA_Workbench")
     first=Instance(exe,location)
     second=None
     try:
@@ -158,7 +164,8 @@ def main():
                 "input_rows":8,"unique_ids":6,"matched_ids":5,"evidence_records_first_id":len(evidence["_annotation_records"]),
                 "csv_rows":len(exported),"project_roundtrip":"PASS","corrupt_project_preserves_results":"PASS",
                 "parallel_ephemeral_ports":"PASS","frozen_csv_tsv_xlsx_import":"PASS","restart_and_restore":"PASS",
-                "other_pc":"NOT_RUN","macos_linux":"NOT_RUN","browser_file_picker":"NOT_RUN"}
+                "runtime_platform":platform.platform(),"other_pc":"NOT_RUN",
+                "other_platforms":"Do not infer; require separate jobs","browser_file_picker":"NOT_RUN"}
         (package.parent/"runtime_validation.json").write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding="utf-8")
         print(json.dumps(report))
     finally:
