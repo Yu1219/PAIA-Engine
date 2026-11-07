@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "commit": "092822e3e2a4002ec9e36e18c681ecc08200319e",
+  "package_sha256": "e411ff24b8f0a70652324b669f8c1a4f28410b9030e4605bb47b6e4ab9bec977",
+  "relocated_directory": "/home/runner/work/PAIA-Engine/PAIA-Engine/tmp/配布版 移動テスト/v2.0.1-linux-x64-20261107-180628-1794074834595981670",
+  "python_available_on_path": false,
+  "attributes": 44,
+  "input_rows": 8,
+  "unique_ids": 6,
+  "matched_ids": 5,
+  "evidence_records_first_id": 300,
+  "csv_rows": 8,
+  "project_roundtrip": "PASS",
+  "corrupt_project_preserves_results": "PASS",
+  "parallel_ephemeral_ports": "PASS",
+  "frozen_csv_tsv_xlsx_import": "PASS",
+  "restart_and_restore": "PASS",
+  "runtime_platform": "Linux-7.0.0-1019-azure-x86_64-with-glibc2.43",
+  "other_pc": "NOT_RUN",
+  "other_platforms": "Do not infer; require separate jobs",
+  "browser_file_picker": "NOT_RUN"
+}

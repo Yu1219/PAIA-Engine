@@ -1,0 +1,60 @@
+{
+  "date": "2026-11-07",
+  "app_version": "2.0.0",
+  "baseline_commit": "69cc3b8a499a90aa5e68908d316e46578c9b45c9",
+  "baseline_tag": "baseline-before-v2-20261107",
+  "windows_artifact_source_commit": "9d0840474c3d29c243aef8be0eaf72ccfef44062",
+  "windows_artifact_sha256": "26dc4c7c725c64995fc7f2a3924d00b6269a87cb97ab4f73908df881a9e251cd",
+  "windows_artifact_bytes": 43750576,
+  "python_tests": {"status":"PASS","count":62,"includes_legacy":true},
+  "node_async_state_regressions": {"status":"PASS","tests":1,"scenarios":5},
+  "windows_frozen_integration": {
+    "status":"PASS",
+    "python_on_path":false,
+    "relocated_to_unicode_path":true,
+    "input_rows":8,
+    "unique_ids":6,
+    "matched_ids":5,
+    "attributes":44,
+    "first_id_evidence_records":300,
+    "csv_tsv_xlsx_import":"PASS",
+    "all_rows_csv":"PASS",
+    "project_restore_in_second_process":"PASS",
+    "corrupt_project_preserves_previous_results":"PASS",
+    "simultaneous_auto_ports":"PASS",
+    "shutdown_restart_restore":"PASS"
+  },
+  "live_database": {"status":"PASS","source":"UniProt","query":"P04637","accession":"P04637","taxonomy_id":9606,"scope":"Source Workbench retrieval, one canonical accession"},
+  "browser_before_review_fixes": {
+    "sample_full_annotation":"PASS",
+    "combined_filters_and_detail":"PASS",
+    "filtered_csv_download":"PASS: two EGFR input rows, Intensities 1200 and 1800",
+    "project_download":"PASS: valid 8-row 6-ID 44-attribute project",
+    "screenshots":"results.png"
+  },
+  "not_run": [
+    "Clean unrelated physical PC or VM",
+    "macOS/Linux physical desktop operation",
+    "Narrow-width and keyboard-only browser completion",
+    "Browser file-picker restore",
+    "Browser recheck after independent review fixes",
+    "Physical network-disconnected machine test",
+    "Claude review final response retrieval"
+  ],
+  "reviews": {
+    "gemini_flash":"Specification-only independent five-case test design; no claimed execution",
+    "claude_opus_5_5_high":"Requested and started; final response not retrieved after computer-use stop",
+    "codex_gpt_6_1_sol_high":"Independent read-only fallback. Four P2 issues reproduced and fixed; focused re-review passed"
+  },
+  "cross_os_ci": {
+    "status":"PASS",
+    "run_url":"https://github.com/Yu1219/PAIA-Engine/actions/runs/42382841846",
+    "head_commit":"6085ad88ad8296fc9894f3fdefe7b8274e9478bc",
+    "checkout_merge_commit":"b80a9b254ffd1da1a4b279eb43045d7f1e4287dd",
+    "platforms":["Windows Server 2025 x64","macOS 26.7.2 arm64","Linux x64 glibc2.43"],
+    "scope":"Each OS installed dependencies, tested, built and ran the extracted executable with no development Python on PATH; imported CSV/TSV/XLSX, saved/restored projects and restarted",
+    "desktop_gui":"NOT_RUN"
+  },
+  "delivery_status":"REVIEW: runnable candidate; remaining real-browser and other-PC checks documented",
+  "pull_request":"https://github.com/Yu1219/PAIA-Engine/pull/1"
+}

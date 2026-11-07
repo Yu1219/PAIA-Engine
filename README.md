@@ -1,5 +1,23 @@
 # PAIA Engine
 
+## 新版：PAIA Workbench 2.0.1
+
+日本語の操作画面を追加しました。入力→設定→結果の流れ、検索・絞り込み・並べ替え、根拠の詳細、作業を別PCへ持ち運ぶプロジェクトJSONに対応します。旧Streamlit版と解析処理を共用し、旧画面と配布物も残しています。
+
+- 配布版：`PAIA-Workbench-2.0.1-windows-x64.zip`をすべて展開して`PAIA_Workbench.exe`を起動。PythonやLLMのAPIキーは不要です。
+- このPCのソース版：セットアップ済みなら`PAIA_Workbench_Source.bat`、または`.venv/Scripts/python paia_desktop.py`。
+- [新UIの使い方・対応OS・プロジェクト保存・旧版への戻し方](docs/WORKBENCH_GUIDE_JA.md)
+- [UI方式の比較と採用理由](docs/WORKBENCH_DESIGN_JA.md)
+- [複数LLMによる開発・検証記録](docs/workbench/VALIDATION.md)
+
+Windows x64・macOS arm64・Linux x64の配布版を用意しています。対応するOS・CPUのZIPをすべて展開して使ってください。別の物理PCやMac/Linuxのデスクトップ実機は未検証です。新規の公開DB検索にはネット接続が必要です。サンプル・保存済み結果の閲覧は通信不要です。**終了前にプロジェクトJSONを保存してください。**
+
+2.0.1のOS別配布版は[3環境のCI](https://github.com/Yu1219/PAIA-Engine/actions/runs/42399545506)で、展開した実行ファイルの保存・復元・再起動を確認しました。実機デスクトップの未実施項目は検証記録を参照してください。
+
+2.0.1では文字・コントラスト・操作領域・レスポンシブ配置を整え、詳細画面の見出しと保存操作を固定しました。[UI調整と確認結果](docs/workbench/UI_POLISH_20261107.md)。2.0.0への保存点は`before-ui-polish-20261107`です。
+
+以下は従来のStreamlit版の手順です。改修前の保存点は`baseline-before-v2-20261107`です。
+
 **Python 3.14対応・日本語ガイド付きのタンパク質アノテーションツール**
 
 タンパク質のIDから、UniProtやInterProの公開情報を使って名前・機能・分子量・局在・ドメイン・翻訳後修飾などを取得します。結果を表やグラフで確認し、元の入力行を残したCSVとして保存できます。
